@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CustomersComponent } from './customers.component';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 import { CustomerService } from '../services/customer.service';
@@ -15,13 +15,12 @@ describe('CustomersComponent', () => {
   let routerSpy: jasmine.SpyObj<Router>;
 
   beforeEach(async () => {
-    // Création des mocks
     customerServiceSpy = jasmine.createSpyObj('CustomerService', ['searchCustomers', 'deleteCustomer']);
     routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
 
     await TestBed.configureTestingModule({
       imports: [
-        CustomersComponent, // ⚠️ Standalone component, on l'importe directement
+        CustomersComponent, // standalone component
         CommonModule,
         ReactiveFormsModule
       ],
@@ -34,7 +33,6 @@ describe('CustomersComponent', () => {
   });
 
   beforeEach(() => {
-    // Mock du retour de recherche
     customerServiceSpy.searchCustomers.and.returnValue(of([]));
 
     fixture = TestBed.createComponent(CustomersComponent);
@@ -53,11 +51,19 @@ describe('CustomersComponent', () => {
   it('should handle deleteCustomer correctly', () => {
     const mockCustomer: Customer = { id: 1, name: 'John Doe', email: 'john@example.com' };
     spyOn(window, 'confirm').and.returnValue(true); // simule le clic sur "OK"
-    customerServiceSpy.deleteCustomer.and.returnValue(of({}));
+    customerServiceSpy.deleteCustomer.and.returnValue(of({} as any));
 
+    // Setup initial customers observable
     component.customers = of([mockCustomer]);
+
+    // On supprime le client
     component.handleDeleteCustomer(mockCustomer);
 
     expect(customerServiceSpy.deleteCustomer).toHaveBeenCalledWith(mockCustomer.id);
+
+    // On vérifie que le client a bien été retiré
+    component.customers.subscribe(data => {
+      expect(data.find(c => c.id === mockCustomer.id)).toBeUndefined();
+    });
   });
 });
