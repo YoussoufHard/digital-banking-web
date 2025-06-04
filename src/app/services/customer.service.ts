@@ -5,24 +5,28 @@ import { Customer } from '../model/customer.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root' // 👈️ Fournit ce service à toute l'app sans configuration supplémentaire
+  providedIn: 'root' // Fournit ce service à toute l'app sans configuration supplémentaire
 })
 export class CustomerService {
+  private apiUrl = environment.backendHost + '/customers';
+
   constructor(private http: HttpClient) {}
 
   public getCustomers(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(`${environment.backendHost}/customers`);
+    return this.http.get<Customer[]>(this.apiUrl);
   }
 
   public searchCustomers(keyword: string): Observable<Customer[]> {
-    return this.http.get<Customer[]>(`${environment.backendHost}/customers/search?keyword=${keyword}`);
+    const encodedKeyword = encodeURIComponent(keyword);
+    return this.http.get<Customer[]>(`${this.apiUrl}/search?keyword=${encodedKeyword}`);
   }
 
   public saveCustomer(customer: Customer): Observable<Customer> {
-    return this.http.post<Customer>(`${environment.backendHost}/customers`, customer);
+    return this.http.post<Customer>(this.apiUrl, customer);
   }
 
   public deleteCustomer(id: number): Observable<void> {
-    return this.http.delete<void>(`${environment.backendHost}/customers/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
+

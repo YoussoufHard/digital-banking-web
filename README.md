@@ -1,59 +1,161 @@
-# DigitalBankingWeb
+# 📱 DigitalBankingWeb
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.7.
+> Frontend Angular de l'application **Digital Banking**, permettant la gestion des clients et comptes bancaires avec authentification sécurisée via **Spring Security + JWT**.
 
-## Development server
+Ce projet a été généré avec [Angular CLI](https://github.com/angular/angular-cli) version **19.2.7**.
 
-To start a local development server, run:
+---
+
+## 🧪 Sommaire
+
+* [🚀 Lancer le projet](#-lancer-le-projet)
+* [🏗️ Build](#️-build)
+* [🧪 Tests](#-tests)
+* [📁 Structure du projet](#-structure-du-projet)
+* [✅ Fonctionnalités réalisées](#-fonctionnalités-réalisées)
+* [📸 Captures d’écran](#-captures-décran)
+* [🛠️ Fonctionnalités à implémenter](#️-fonctionnalités-à-implémenter)
+* [📚 Ressources utiles](#-ressources-utiles)
+
+---
+
+
+## 🚀 Lancer le projet
+
+Pour démarrer le serveur de développement local :
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Naviguez ensuite vers [http://localhost:4200](http://localhost:4200). L’application se rechargera automatiquement en cas de modification des fichiers sources.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🏗️ Build
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+Pour compiler l'application :
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Le build sera généré dans le dossier `dist/`.
 
-## Running unit tests
+---
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## 🧪 Tests
+
+### ✅ Tests unitaires
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+### ✅ Tests end-to-end (e2e)
 
 ```bash
 ng e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+> ℹ️ Angular CLI ne fournit pas par défaut de framework e2e. Vous pouvez utiliser Cypress, Playwright ou autre.
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📁 Structure du projet
+
+```bash
+Projet/
+├── node_modules/
+├── public/
+├── src/
+│   ├── app/
+│   │   ├── accounts/
+│   │   ├── auth/ # Login, register (avec JWT)
+│   │   ├── customer-accounts/
+│   │   ├── customers/
+│   │   │   ├── customers.component.css
+│   │   │   ├── customers.component.html
+│   │   │   ├── customers.component.spec.ts
+│   │   │   └── customers.component.ts
+│   │   ├── dashboard/ # Graphiques ChartJS
+│   │   ├── model/
+│   │   ├── navbar/
+│   │   ├── new-customer/
+│   │   ├── services/
+│   │   │   ├── accounts.service.ts
+│   │   │   ├── accounts.service.spec.ts
+│   │   │   ├── customer.service.ts
+│   │   │   └── customer.service.spec.ts
+│   │   ├── app.component.ts/html/css
+│   │   ├── app.routes.ts/.server.ts
+│   │   ├── app.config.ts/.server.ts
+│   ├── environments/
+│   └── index.html
+```
+
+---
+
+## ✅ Fonctionnalités réalisées
+
+* ✔️ Authentification sécurisée avec **Spring Security** & **JWT** (backend Spring)
+* ✔️ Interface utilisateur Angular avec navigation via `navbar`
+* ✔️ **Affichage des clients**
+* ✔️ **Recherche dynamique** des clients
+* ✔️ **Services Angular** pour consommer l'API REST sécurisée
+* ✔️ Architecture modulaire : `customers/`, `accounts/`, `services/`, `models/`, etc.
+* ✔️ Utilisation du **Routing** Angular
+
+---
+
+## 📸 Captures d’écran
+
+
+### 🧍 Liste des clients
+
+![Liste des clients](./screenshots/img.png)
+
+### 🔍 Recherche en temps réel
+
+![Recherche client](./screenshots/img_1.png)
+
+---
+
+## 🛠️ Fonctionnalités à implémenter
+
+### 📌 Gestion des Clients
+
+* [ ] Ajout de nouveaux clients
+* [ ] Suppression et modification
+* [x] Recherche dynamique
+
+### 💰 Gestion des Comptes
+
+* [ ] Création de comptes bancaires (courants, épargne)
+* [ ] Recherche, administration, affichage des comptes
+
+### 👤 Authentification
+
+* [x] Login sécurisé avec JWT
+* [ ] Enregistrement de l’utilisateur associé à chaque opération
+* [ ] Changement de mot de passe utilisateur
+
+### 📊 Dashboard (Statistiques)
+
+* [ ] Graphiques via **Chart.js (ng-chart)** : répartition des comptes, activité par utilisateur, etc.
+
+### 🧩 Autres fonctionnalités potentielles
+
+* [ ] Pagination de la liste des clients
+* [ ] Tri multi-critères
+* [ ] Gestion des rôles utilisateur (admin, agent, etc.)
+
+---
+
+## 📚 Ressources utiles
+
+* 🌐 [Angular CLI Docs](https://angular.dev/tools/cli)
+* 📺 [Partie 2 : Angular Frontend](https://www.youtube.com/watch?v=bOoPKctcE0s)
+* 🔐 [Partie 3 : Sécurité JWT](https://www.youtube.com/watch?v=n65zFfl9dqA&authuser=0)
+
+---

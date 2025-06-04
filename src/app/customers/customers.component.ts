@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
@@ -10,11 +9,10 @@ import { Customer } from '../model/customer.model';
 
 @Component({
   selector: 'app-customers',
-  standalone: true, // ✅ Composant standalone
+  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    HttpClientModule // ✅ Nécessaire si tu fais des requêtes HTTP (au cas où CustomerService utilise HttpClient)
   ],
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.css']
@@ -24,11 +22,10 @@ export class CustomersComponent implements OnInit {
   errorMessage!: string;
   searchFormGroup: FormGroup | undefined;
 
-  constructor(
-    private customerService: CustomerService,
-    private fb: FormBuilder,
-    private router: Router
-  ) {}
+  // ✅ Syntaxe moderne Angular 19 avec inject()
+  private customerService = inject(CustomerService);
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.searchFormGroup = this.fb.group({
@@ -38,11 +35,11 @@ export class CustomersComponent implements OnInit {
   }
 
   handleSearchCustomers() {
-    const kw = this.searchFormGroup?.value.keyword;
+    const kw = this.searchFormGroup?.value.keyword || '';
     this.customers = this.customerService.searchCustomers(kw).pipe(
       catchError(err => {
         this.errorMessage = err.message;
-        return throwError(err);
+        return throwError(() => err);
       })
     );
   }
@@ -56,13 +53,15 @@ export class CustomersComponent implements OnInit {
         this.customers = this.customers.pipe(
           map(data => {
             const index = data.indexOf(c);
-            data.splice(index, 1); // ✅ Correction de `slice` en `splice`
+            if (index > -1) {
+              data.splice(index, 1);
+            }
             return data;
           })
         );
       },
       error: err => {
-        console.log(err);
+        console.error('Error deleting customer:', err);
       }
     });
   }
