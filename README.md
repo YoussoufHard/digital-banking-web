@@ -179,8 +179,13 @@ Un bouton **"Save Operation"** valide l’action.
 
 ### 💰 Gestion des Comptes
 
-* [ ] Création de comptes bancaires (courants, épargne)
-* [ ] Recherche, administration, affichage des comptes
+* [x] Création de comptes bancaires (courants, épargne)
+  ![recherche](./screenshots/img_12.png)
+* [x] Recherche, administration, affichage des comptes
+  ![recherche](./screenshots/img_11.png)
+* Les operations sur un comptes
+* 
+  ![recherche](./screenshots/img_13.png)
 
 ### 👤 Authentification
 

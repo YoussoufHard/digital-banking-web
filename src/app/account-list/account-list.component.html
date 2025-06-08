@@ -1,0 +1,43 @@
+<div class="container mt-3">
+  <h3>Liste des comptes</h3>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearch()" class="mb-3">
+    <div class="input-group">
+      <label class="input-group-text">Recherche</label>
+      <input type="text" class="form-control" formControlName="keyword" placeholder="ID, type, nom client...">
+      <button class="btn btn-info" type="submit">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </form>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Type</th>
+      <th>Solde</th>
+      <th>Client</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let acc of filteredAccounts">
+      <td>{{ acc.id }}</td>
+      <td>{{ acc.type }}</td>
+      <td>{{ acc.balance | number:'1.2-2' }}</td>
+      <td>{{ acc.customerDTO.name || 'N/A' }}</td>
+      <td>
+        <button class="btn btn-sm btn-primary me-1" (click)="openOperations(acc.id)">
+          <i class="bi bi-pencil-square"></i> Opérations
+        </button>
+        <button class="btn btn-sm btn-danger" (click)="deleteAccount(acc.id)">
+          <i class="bi bi-trash-fill"></i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

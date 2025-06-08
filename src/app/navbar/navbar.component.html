@@ -18,11 +18,17 @@
           </a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/accounts" routerLinkActive="active">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="accountDropdown"
+             role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-wallet2 me-1"></i> Accounts
           </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+            <li><a class="dropdown-item" routerLink="/accounts">🔍 Search accounts</a></li>
+            <li><a class="dropdown-item" routerLink="/new-account">➕ New account</a></li>
+          </ul>
         </li>
+
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
