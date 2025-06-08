@@ -28,5 +28,10 @@ export class CustomerService {
   public deleteCustomer(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  public updateCustomer(customer: Customer): Observable<any> {
+    return this.http.put(`${environment.backendHost}/customers/${customer.id}`, customer);
+  }
+
 }
 

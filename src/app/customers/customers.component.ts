@@ -7,6 +7,10 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { CustomerService } from '../services/customer.service';
 import { Customer } from '../model/customer.model';
 
+// @ts-ignore
+import * as bootstrap from 'bootstrap';
+
+
 @Component({
   selector: 'app-customers',
   standalone: true,
@@ -27,10 +31,21 @@ export class CustomersComponent implements OnInit {
   private fb = inject(FormBuilder);
   private router = inject(Router);
 
+// ✅ 👉 AJOUTE CECI :
+  editedCustomer!: Customer; // Contiendra le client en cours de modification
+  editForm!: FormGroup;      // Formulaire pour le modal d'édition
+
+
   ngOnInit(): void {
     this.searchFormGroup = this.fb.group({
       keyword: this.fb.control('')
     });
+
+    this.editForm = this.fb.group({
+      name: this.fb.control(''),
+      email: this.fb.control('')
+    });
+
     this.handleSearchCustomers();
   }
 
@@ -69,4 +84,87 @@ export class CustomersComponent implements OnInit {
   handleCustomerAccounts(customer: Customer) {
     this.router.navigateByUrl('/customer-accounts/' + customer.id, { state: customer });
   }
+
+  handleEditCustomer(c: Customer) {
+    this.editedCustomer = { ...c };
+
+    // Préremplir le formulaire
+    this.editForm.patchValue({
+      name: c.name,
+      email: c.email
+    });
+
+    // Ouvrir le modal Bootstrap
+    const modalEl = document.getElementById('editCustomerModal');
+    if (modalEl) {
+      const modal = new bootstrap.Modal(modalEl);
+      modal.show();
+    }
+  }
+
+  saveEdit() {
+    const updatedCustomer: Customer = {
+      ...this.editedCustomer,
+      name: this.editForm.value.name,
+      email: this.editForm.value.email
+    };
+
+    this.customerService.updateCustomer(updatedCustomer).subscribe({
+      next: () => {
+        this.customers = this.customers.pipe(
+          map(data => {
+            const index = data.findIndex(item => item.id === updatedCustomer.id);
+            if (index !== -1) data[index] = updatedCustomer;
+            return data;
+          })
+        );
+
+        // Fermer le modal
+        const modalEl = document.getElementById('editCustomerModal');
+        if (modalEl) {
+          const modal = bootstrap.Modal.getInstance(modalEl);
+          modal?.hide();
+        }
+      },
+      error: err => {
+        console.error('Error updating customer:', err);
+        alert('Update failed');
+      }
+    });
+  }
+
+  // handleEditCustomer(c: Customer) {
+  //   const newName = prompt('New name:', c.name);
+  //   const newEmail = prompt('New email:', c.email);
+  //
+  //   if (newName !== null && newEmail !== null) {
+  //     const updatedCustomer: Customer = {
+  //       ...c,
+  //       name: newName,
+  //       email: newEmail
+  //     };
+  //
+  //     this.customerService.updateCustomer(updatedCustomer).subscribe({
+  //       next: () => {
+  //         this.customers = this.customers.pipe(
+  //           map(data => {
+  //             const index = data.findIndex(item => item.id === c.id);
+  //             if (index !== -1) {
+  //               data[index] = updatedCustomer;
+  //             }
+  //             return data;
+  //           })
+  //         );
+  //       },
+  //       error: err => {
+  //         console.error('Error updating customer:', err);
+  //         alert('Update failed');
+  //       }
+  //     });
+  //   }
+  // }
+
+
 }
+
+

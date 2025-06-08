@@ -13,11 +13,10 @@ import { NavbarComponent } from './navbar/navbar.component';
     CommonModule,
     RouterModule,
     RouterOutlet, // ✅ indispensable si tu utilises <router-outlet>
-    HttpClientModule,
     ReactiveFormsModule,
     NavbarComponent,
   ],
-  templateUrl: './app.component.html', 
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {

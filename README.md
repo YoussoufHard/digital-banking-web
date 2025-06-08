@@ -115,9 +115,45 @@ Projet/
 
 ![Liste des clients](./screenshots/img.png)
 
-### 🔍 Recherche en temps réel
+### 🔍 Recherche en temps réel d'un client
 
 ![Recherche client](./screenshots/img_1.png)
+
+
+### 🔍 Recherche de Compte
+
+* L'utilisateur saisit l'ID du compte dans le champ prévu et clique sur **Search**.
+* Les informations affichées incluent :
+
+  * ✅ **Account ID**
+  * 💰 **Balance**
+  * 📄 **Historique des opérations** (avec pagination)
+
+#### 📑 La capture d'un exemple d’opérations :
+
+![Operation dispo](./screenshots/img_3.png)
+
+
+### ⚙️ Opérations Disponibles
+
+L’utilisateur peut effectuer les opérations suivantes sur le compte affiché :
+
+* **DEBIT** : retirer une somme du compte
+* **CREDIT** : ajouter une somme au compte
+* **TRANSFER** : transférer une somme vers un autre compte
+![Operation dispo](./screenshots/img_2.png)
+
+![Operation dispo](./screenshots/img_4.png)
+
+![Operation dispo](./screenshots/img_5.png)
+
+Chaque opération nécessite :
+
+* un montant
+* une description
+* un compte destination (pour TRANSFER)
+
+Un bouton **"Save Operation"** valide l’action.
 
 ---
 
@@ -125,9 +161,21 @@ Projet/
 
 ### 📌 Gestion des Clients
 
-* [ ] Ajout de nouveaux clients
-* [ ] Suppression et modification
+* [x] Ajout de nouveaux clients
+
+  ![Ajout_customers](./screenshots/img_6.png)
+
+* [x] Suppression et modification
+
+  ![Supprimer_customers](./screenshots/img_7.png)
+
+  ![modifier_customers](./screenshots/img_8.png)
+
+  ![modifier_customers](./screenshots/img_9.png)
+* 
 * [x] Recherche dynamique
+
+  ![recherche_customers](./screenshots/img_10.png)
 
 ### 💰 Gestion des Comptes
 
