@@ -190,6 +190,7 @@ Un bouton **"Save Operation"** valide l’action.
 ### 👤 Authentification
 
 * [x] Login sécurisé avec JWT
+  ![recherche](./screenshots/img_14.png)
 * [ ] Enregistrement de l’utilisateur associé à chaque opération
 * [ ] Changement de mot de passe utilisateur
 
